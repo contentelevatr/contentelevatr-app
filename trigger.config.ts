@@ -4,6 +4,7 @@ export default defineConfig({
   project: "proj_contentelevatr",
   runtime: "node",
   logLevel: "info",
+  maxDuration: 60,
   dirs: ["src/trigger"],
   retries: {
     enabledInDev: true,

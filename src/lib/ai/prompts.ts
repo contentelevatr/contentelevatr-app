@@ -38,6 +38,14 @@ export const PLATFORM_PROMPTS: Record<Platform, string> = {
 - Educational or storytelling approach
 - Include a clear introduction and conclusion
 - No character limit practically`,
+
+  reddit: `Reddit post guidelines:
+- Highly conversational and authentic tone
+- Avoid sounding promotional or "marketer-speak"
+- Use line breaks for readability
+- NO hashtags
+- Focus on providing raw value, insights, or asking genuine questions
+- Adapt to specific subreddit culture rules if context is provided`,
 };
 
 /** System prompt for generating multi-platform content */

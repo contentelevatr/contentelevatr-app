@@ -68,13 +68,13 @@ export async function createPost(formData: {
   // Create platform-specific posts
   const platformPostValues = platforms.map((platform) => ({
     postId: newPost.id,
-    platform,
+    platform: platform as any, // Force ANY to break Drizzle type inference loop
     platformContent: platformContent?.[platform] ?? content,
     status: status === "draft" ? ("draft" as const) : ("scheduled" as const),
   }));
 
   if (platformPostValues.length > 0) {
-    await db.insert(platformPosts).values(platformPostValues);
+    await db.insert(platformPosts).values(platformPostValues as any);
   }
 
   revalidatePath("/dashboard/posts");
@@ -211,14 +211,14 @@ export async function schedulePost(formData: {
   // Create platform posts with scheduledAt
   const platformPostValues = formData.platforms.map((platform) => ({
     postId: newPost.id,
-    platform,
+    platform: platform as any, // Force ANY to break Drizzle inference loop
     platformContent: formData.platformContent?.[platform] ?? formData.content,
     status: "scheduled" as const,
     scheduledAt: scheduleDate,
   }));
 
   if (platformPostValues.length > 0) {
-    await db.insert(platformPosts).values(platformPostValues);
+    await db.insert(platformPosts).values(platformPostValues as any);
   }
 
   revalidatePath("/dashboard/posts");
