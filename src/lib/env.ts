@@ -20,6 +20,21 @@ const envSchema = z.object({
   // Resend
   RESEND_API_KEY: z.string().min(1),
 
+  // AI — Google Gemini
+  GEMINI_API_KEY: z.string().min(1).optional(),
+
+  // Platform OAuth (optional — connect as needed)
+  LINKEDIN_CLIENT_ID: z.string().optional(),
+  LINKEDIN_CLIENT_SECRET: z.string().optional(),
+  TWITTER_CLIENT_ID: z.string().optional(),
+  TWITTER_CLIENT_SECRET: z.string().optional(),
+  INSTAGRAM_APP_ID: z.string().optional(),
+  INSTAGRAM_APP_SECRET: z.string().optional(),
+  THREADS_APP_ID: z.string().optional(),
+  THREADS_APP_SECRET: z.string().optional(),
+  MEDIUM_CLIENT_ID: z.string().optional(),
+  MEDIUM_CLIENT_SECRET: z.string().optional(),
+
   // App
   NEXT_PUBLIC_APP_URL: z.string().url(),
 });

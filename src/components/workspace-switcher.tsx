@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -53,36 +54,40 @@ export function WorkspaceSwitcher({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="w-[200px] justify-start gap-2 truncate rounded-md border bg-background px-3 py-2 text-sm hover:bg-accent disabled:opacity-50"
+        className="flex w-full items-center justify-between gap-2 truncate rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200 hover:bg-white/10 hover:text-white disabled:opacity-50 transition-colors"
         disabled={isLoading}
       >
+        <div className="flex items-center gap-2 truncate">
           <span className="text-lg">
             {activeWorkspace?.type === "agency" ? "🏢" : "👤"}
           </span>
-          <span className="truncate">
+          <span className="truncate font-medium">
             {activeWorkspace?.name ?? "Select workspace"}
           </span>
+        </div>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start" className="w-[220px]">
-        <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+          <DropdownMenuSeparator />
 
-        {workspaces.map((workspace) => (
-          <DropdownMenuItem
-            key={workspace.id}
-            onClick={() => switchWorkspace(workspace.id)}
-            className="flex items-center gap-2"
-          >
-            <span>{workspace.type === "agency" ? "🏢" : "👤"}</span>
-            <span className="flex-1 truncate">{workspace.name}</span>
-            {workspace.id === activeWorkspaceId && (
-              <Badge variant="secondary" className="text-xs">
-                Active
-              </Badge>
-            )}
-          </DropdownMenuItem>
-        ))}
+          {workspaces.map((workspace) => (
+            <DropdownMenuItem
+              key={workspace.id}
+              onClick={() => switchWorkspace(workspace.id)}
+              className="flex items-center gap-2"
+            >
+              <span>{workspace.type === "agency" ? "🏢" : "👤"}</span>
+              <span className="flex-1 truncate">{workspace.name}</span>
+              {workspace.id === activeWorkspaceId && (
+                <Badge variant="secondary" className="text-xs">
+                  Active
+                </Badge>
+              )}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
         <DropdownMenuItem

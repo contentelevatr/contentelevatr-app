@@ -3,20 +3,39 @@ import { db } from "@/lib/db";
 import { users, workspaceMembers, workspaces } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { cookies } from "next/headers";
+import { cache } from "react";
 
-export async function getCurrentUser() {
+export const getCurrentUser = cache(async () => {
   const { userId: clerkId } = await auth();
 
   if (!clerkId) {
     return null;
   }
 
-  const user = await db.query.users.findFirst({
+  let user = await db.query.users.findFirst({
     where: eq(users.clerkId, clerkId),
   });
 
-  return user ?? null;
-}
+  // JIT Provisioning (Fallback for missing webhooks in local dev)
+  if (!user) {
+    const clerkUser = await currentUser();
+    if (!clerkUser) return null;
+
+    const email = clerkUser.emailAddresses[0]?.emailAddress;
+    if (!email) return null;
+
+    const [newUser] = await db.insert(users).values({
+      clerkId,
+      email,
+      name: clerkUser.firstName ? `${clerkUser.firstName} ${clerkUser.lastName || ""}`.trim() : null,
+      imageUrl: clerkUser.imageUrl,
+    }).returning();
+
+    user = newUser;
+  }
+
+  return user;
+});
 
 export async function requireUser() {
   const user = await getCurrentUser();

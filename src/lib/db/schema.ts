@@ -31,6 +31,7 @@ export const platformEnum = pgEnum("platform", [
   "instagram",
   "threads",
   "medium",
+  "reddit",
 ]);
 
 export const postStatusEnum = pgEnum("post_status", [
@@ -50,7 +51,9 @@ export const platformPostStatusEnum = pgEnum("platform_post_status", [
 
 export const commentStatusEnum = pgEnum("comment_status", [
   "pending",
+  "approved",
   "replied",
+  "failed",
   "ignored",
 ]);
 
