@@ -32,7 +32,9 @@ export default function OnboardingPage() {
 
       if (!res.ok) throw new Error("Failed to create workspace");
 
-      router.push("/dashboard");
+      // Use a hard redirect instead of router.push to bypass Next.js client-side cache
+      // This ensures the new setting cookies are fully read by the server on the next request.
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error(error);
     } finally {
