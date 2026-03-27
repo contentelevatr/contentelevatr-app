@@ -34,7 +34,7 @@ export default function OnboardingPage() {
 
       // Use a hard redirect instead of router.push to bypass Next.js client-side cache
       // This ensures the new setting cookies are fully read by the server on the next request.
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/settings/accounts";
     } catch (error) {
       console.error(error);
     } finally {
