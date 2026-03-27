@@ -4,6 +4,8 @@ import { getCurrentUser, getActiveWorkspaceId } from "@/lib/auth";
 import { getWorkspacesForUser } from "@/lib/workspace";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SidebarShell } from "@/components/sidebar-shell";
+import { MobileNav } from "@/components/mobile-nav";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function DashboardLayout({
@@ -41,10 +43,17 @@ export default async function DashboardLayout({
       {/* Main content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="flex h-14 items-center justify-between border-b px-6">
-          <div className="md:hidden">
-            <Link href="/dashboard" className="text-lg font-bold">
-              Content<span className="text-primary">Elevatr</span>
+        <header className="flex h-14 items-center justify-between border-b px-4 md:px-6">
+          <div className="flex items-center gap-2 md:hidden">
+            <MobileNav
+              workspaces={workspaces}
+              activeWorkspaceId={activeWorkspaceId}
+            />
+            <Link href="/dashboard" className="flex items-center gap-1.5">
+              <Image src="/logo.png" alt="ContentElevatr" width={24} height={24} />
+              <span className="text-lg font-bold">
+                Content<span className="text-primary">Elevatr</span>
+              </span>
             </Link>
           </div>
           <div className="flex-1" />

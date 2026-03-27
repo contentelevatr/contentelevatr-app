@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   title: "ContentElevatr — Create Once. Publish Everywhere.",
   description:
     "Social media management for solo creators and agencies. Create once, publish everywhere, grow faster.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

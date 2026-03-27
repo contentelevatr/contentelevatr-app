@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { WorkspaceSwitcher } from "@/components/workspace-switcher";
 import { SidebarNav } from "@/components/sidebar-nav";
@@ -22,11 +23,12 @@ export function SidebarShell({ workspaces, activeWorkspaceId }: SidebarShellProp
     >
       {/* Logo */}
       <div className={`flex h-14 items-center ${collapsed ? "justify-center px-2" : "px-4"}`}>
-        <Link href="/dashboard" className="text-xl font-bold tracking-tight">
-          {collapsed ? (
-            <span className="text-indigo-400">C</span>
-          ) : (
-            <>Content<span className="text-indigo-400">Elevatr</span></>
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <Image src="/logo.png" alt="ContentElevatr" width={28} height={28} className="shrink-0" />
+          {!collapsed && (
+            <span className="text-xl font-bold tracking-tight">
+              Content<span className="text-indigo-400">Elevatr</span>
+            </span>
           )}
         </Link>
       </div>
