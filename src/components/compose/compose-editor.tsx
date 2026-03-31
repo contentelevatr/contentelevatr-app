@@ -20,6 +20,9 @@ const ALL_PLATFORMS: Platform[] = [
   "threads",
   "medium",
   "reddit",
+  "facebook",
+  "pinterest",
+  "youtube",
 ];
 
 interface ComposeEditorProps {

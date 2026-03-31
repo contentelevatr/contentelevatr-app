@@ -32,6 +32,9 @@ export const platformEnum = pgEnum("platform", [
   "threads",
   "medium",
   "reddit",
+  "facebook",
+  "pinterest",
+  "youtube",
 ]);
 
 export const postStatusEnum = pgEnum("post_status", [

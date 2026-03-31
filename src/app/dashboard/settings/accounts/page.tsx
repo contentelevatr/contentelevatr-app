@@ -12,6 +12,9 @@ const ALL_PLATFORMS: Platform[] = [
   "threads",
   "medium",
   "reddit",
+  "facebook",
+  "pinterest",
+  "youtube",
 ];
 
 export default async function AccountsSettingsPage({

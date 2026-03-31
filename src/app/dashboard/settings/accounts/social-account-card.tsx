@@ -8,7 +8,11 @@ import Image from "next/image";
 import type { Platform } from "@/lib/platforms/types";
 import { PLATFORM_DISPLAY_NAMES } from "@/lib/platforms/types";
 import { PlatformIcon } from "@/components/ui/platform-icon";
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle, ArrowRight } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface SocialAccountCardProps {
   account?: {
@@ -30,6 +34,9 @@ const PLATFORM_COLORS: Record<Platform, string> = {
   threads: "from-zinc-700 to-zinc-800",
   medium: "from-green-700 to-green-800",
   reddit: "from-orange-500 to-red-500",
+  facebook: "from-blue-500 to-blue-600",
+  pinterest: "from-red-600 to-red-700",
+  youtube: "from-red-500 to-red-600",
 };
 
 export function SocialAccountCard({
@@ -148,15 +155,103 @@ export function SocialAccountCard({
               <XCircle className="h-4 w-4" />
               <p className="text-sm">Not connected</p>
             </div>
-            <a
-              href={`/api/oauth/${platform}/authorize`}
-              className="block w-full rounded-lg bg-primary py-2 text-center text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              Connect {PLATFORM_DISPLAY_NAMES[platform]}
-            </a>
+            {platform === "medium" ? (
+              <MediumConnectDialog router={router} />
+            ) : (
+              <a
+                href={`/api/oauth/${platform}/authorize`}
+                className="block w-full rounded-lg bg-primary py-2 text-center text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Connect {PLATFORM_DISPLAY_NAMES[platform]}
+              </a>
+            )}
           </div>
         )}
       </div>
     </div>
   );
 }
+
+function MediumConnectDialog({ router }: { router: any }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [token, setToken] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!token.trim()) return;
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/platforms/medium/connect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token.trim() }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      toast.success("Medium connected successfully!");
+      setIsOpen(false);
+      setToken("");
+      router.refresh();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to connect Medium");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger render={<button className="block w-full rounded-lg bg-primary py-2 text-center text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors" />}>
+        Connect Medium
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Connect Medium</DialogTitle>
+          <DialogDescription>
+            Medium uses Integration Tokens for secure publishing. Follow the short steps below to connect your account.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+          <div className="space-y-4 rounded-lg bg-muted/50 p-4 text-sm">
+            <div className="flex items-start gap-2">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-background text-xs font-medium border">1</span>
+              <div>
+                Go to your <a href="https://medium.com/me/settings/security" target="_blank" rel="noreferrer" className="font-semibold text-primary hover:underline inline-flex items-center gap-1">Medium Settings <ArrowRight className="h-3 w-3 "/></a>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-background text-xs font-medium border">2</span>
+              <p>Scroll down to <strong>Integration Tokens</strong> and enter "ContentElevatr".</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-background text-xs font-medium border">3</span>
+              <p>Click <strong>Get Token</strong> and paste it below.</p>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="token">Integration Token</Label>
+            <Input
+              id="token"
+              type="password"
+              placeholder="Paste your long base64-like token here"
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              disabled={isSubmitting}
+              required
+            />
+          </div>
+          
+          <Button type="submit" className="w-full" disabled={!token.trim() || isSubmitting}>
+            {isSubmitting ? "Connecting..." : "Connect Account"}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+

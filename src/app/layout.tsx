@@ -20,8 +20,11 @@ export const metadata: Metadata = {
   description:
     "Social media management for solo creators and agencies. Create once, publish everywhere, grow faster.",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/favicon.png",
   },
 };
 

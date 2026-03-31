@@ -50,7 +50,7 @@ export default async function DashboardLayout({
               activeWorkspaceId={activeWorkspaceId}
             />
             <Link href="/dashboard" className="flex items-center gap-1.5">
-              <Image src="/logo.png" alt="ContentElevatr" width={24} height={24} />
+              <img src="/logo.png" alt="ContentElevatr" width={24} height={24} className="rounded-md" />
               <span className="text-lg font-bold">
                 Content<span className="text-primary">Elevatr</span>
               </span>

@@ -67,11 +67,12 @@ export function MobileNav({ workspaces, activeWorkspaceId }: MobileNavProps) {
               className="flex items-center gap-2"
               onClick={() => setOpen(false)}
             >
-              <Image
+              <img
                 src="/logo.png"
                 alt="ContentElevatr"
                 width={28}
                 height={28}
+                className="rounded-md"
               />
               <span className="text-xl font-bold tracking-tight text-white">
                 Content
