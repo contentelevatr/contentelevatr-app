@@ -1,6 +1,6 @@
 // Platform client interface — all platforms implement this contract
 
-export type Platform = "linkedin" | "twitter" | "instagram" | "threads" | "medium" | "reddit";
+export type Platform = "linkedin" | "twitter" | "instagram" | "threads" | "medium" | "reddit" | "facebook" | "pinterest" | "youtube";
 
 export interface PlatformConfig {
   clientId: string;
@@ -69,8 +69,11 @@ export const PLATFORM_CHAR_LIMITS: Record<Platform, number> = {
   twitter: 280,
   instagram: 2200,
   threads: 500,
-  medium: 100000, // effectively unlimited for Medium articles
+  medium: 100000,
   reddit: 40000,
+  facebook: 63206,
+  pinterest: 500,
+  youtube: 5000,
 };
 
 /** Human-readable display names */
@@ -81,4 +84,7 @@ export const PLATFORM_DISPLAY_NAMES: Record<Platform, string> = {
   threads: "Threads",
   medium: "Medium",
   reddit: "Reddit",
+  facebook: "Facebook",
+  pinterest: "Pinterest",
+  youtube: "YouTube",
 };

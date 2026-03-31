@@ -34,6 +34,9 @@ const PLATFORM_COLORS: Record<Platform, string> = {
   threads: "from-zinc-700 to-zinc-800",
   medium: "from-green-700 to-green-800",
   reddit: "from-orange-500 to-red-500",
+  facebook: "from-blue-500 to-blue-600",
+  pinterest: "from-red-600 to-red-700",
+  youtube: "from-red-500 to-red-600",
 };
 
 export function SocialAccountCard({

@@ -9,7 +9,7 @@ const anthropic = new Anthropic({
 
 const reviewSchema = z.object({
   content: z.string().min(1),
-  platform: z.enum(["linkedin", "twitter", "instagram", "threads", "medium", "reddit"]),
+  platform: z.enum(["linkedin", "twitter", "instagram", "threads", "medium", "reddit", "facebook", "pinterest", "youtube"]),
 });
 
 const PLATFORM_CONTEXT: Record<Platform, string> = {
@@ -19,6 +19,9 @@ const PLATFORM_CONTEXT: Record<Platform, string> = {
   threads: "Conversational, authentic, quick thoughts or engaging questions.",
   medium: "Long-form editorial, well-structured headers, deep insights, formal tone.",
   reddit: "Authentic, conversational, providing highly relevant context without sounding strictly promotional. Follow subreddit rules strictly.",
+  facebook: "Friendly, conversational, community-driven, and shareable. Use a storytelling approach.",
+  pinterest: "Keyword-rich, inspiring, visually descriptive, and benefit-focused. Short and searchable.",
+  youtube: "Engaging, question-driven, conversational. Encourage comments and interaction.",
 };
 
 export async function POST(req: Request) {

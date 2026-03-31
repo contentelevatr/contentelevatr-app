@@ -46,6 +46,32 @@ export const PLATFORM_PROMPTS: Record<Platform, string> = {
 - NO hashtags
 - Focus on providing raw value, insights, or asking genuine questions
 - Adapt to specific subreddit culture rules if context is provided`,
+
+  facebook: `Facebook post guidelines:
+- Conversational, friendly tone
+- Moderate length (50-500 words works best)
+- Emojis are welcome but not excessive
+- Include a clear call to action
+- Use line breaks for readability
+- Hashtags are optional (0-3 max)
+- Storytelling performs well`,
+
+  pinterest: `Pinterest pin description guidelines:
+- Short and keyword-rich (max 500 characters)
+- Include relevant keywords for search discovery
+- Use a descriptive, inspiring tone
+- Include a call to action (Save, Try, Click)
+- NO hashtags (Pinterest uses keywords instead)
+- Focus on benefits and value`,
+
+  youtube: `YouTube community post guidelines:
+- Engaging and conversational
+- Ask questions to drive comments
+- Use emojis for visual interest
+- Max 5000 characters
+- Polls and questions perform well
+- Reference your videos when relevant
+- Include calls to action (like, subscribe, comment)`,
 };
 
 /** System prompt for generating multi-platform content */

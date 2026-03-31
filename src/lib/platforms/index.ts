@@ -5,6 +5,9 @@ import { instagramClient } from "./instagram";
 import { threadsClient } from "./threads";
 import { mediumClient } from "./medium";
 import { redditClient } from "./reddit";
+import { facebookClient } from "./facebook";
+import { pinterestClient } from "./pinterest";
+import { youtubeClient } from "./youtube";
 
 const clients: Record<Platform, PlatformClient> = {
   linkedin: linkedinClient,
@@ -13,6 +16,9 @@ const clients: Record<Platform, PlatformClient> = {
   threads: threadsClient,
   medium: mediumClient,
   reddit: redditClient,
+  facebook: facebookClient,
+  pinterest: pinterestClient,
+  youtube: youtubeClient,
 };
 
 export function getPlatformClient(platform: Platform): PlatformClient {
