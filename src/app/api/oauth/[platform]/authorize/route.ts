@@ -16,7 +16,7 @@ export async function GET(
   }
 
   const { platform } = await params;
-  const validPlatforms: Platform[] = ["linkedin", "twitter", "instagram", "threads", "medium", "reddit"];
+  const validPlatforms: Platform[] = ["linkedin", "twitter", "instagram", "threads", "medium", "reddit", "facebook", "pinterest", "youtube"];
 
   if (!validPlatforms.includes(platform as Platform)) {
     return NextResponse.json({ error: "Invalid platform" }, { status: 400 });

@@ -114,6 +114,19 @@ export async function GET(
           accountAvatar = profile.data?.profile_image_url ?? null;
           platformAccountId = profile.data?.id ?? platformAccountId;
         }
+      } else if (platform === "youtube") {
+        const profileRes = await fetch("https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true", {
+          headers: { Authorization: `Bearer ${tokens.accessToken}` },
+        });
+        if (profileRes.ok) {
+          const profile = await profileRes.json();
+          if (profile.items && profile.items.length > 0) {
+            const channel = profile.items[0];
+            accountName = channel.snippet?.title ?? accountName;
+            accountAvatar = channel.snippet?.thumbnails?.default?.url ?? null;
+            platformAccountId = channel.id ?? platformAccountId;
+          }
+        }
       }
     } catch (profileErr) {
       console.warn(`Could not fetch profile for ${platform}:`, profileErr);

@@ -8,6 +8,13 @@
       "when": 1773856395671,
       "tag": "0000_lame_venom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1775977619657,
+      "tag": "0001_smart_shen",
+      "breakpoints": true
     }
   ]
 }
