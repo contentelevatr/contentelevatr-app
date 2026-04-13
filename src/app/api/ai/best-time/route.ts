@@ -74,9 +74,16 @@ Return ONLY a JSON object with this format:
     }
   } catch (error) {
     console.error("Best time suggestion error:", error);
-    return NextResponse.json(
-      { error: "Failed to generate suggestion" },
-      { status: 500 }
-    );
+    if (error instanceof Error && (error.message.includes("429") || error.message.includes("RESOURCE_EXHAUSTED"))) {
+      console.warn("AI generation rate limit (429) hit. Returning fallback.");
+    }
+    return NextResponse.json({
+      suggestedTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+      reason: error instanceof Error && (error.message.includes("429") || error.message.includes("RESOURCE_EXHAUSTED")) 
+        ? "Rate limit reached — defaulting to tomorrow" 
+        : "Default suggestion — tomorrow at the same time",
+      dayOfWeek: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString("en-US", { weekday: "long" }),
+      timeSlot: "9:00 AM",
+    });
   }
 }

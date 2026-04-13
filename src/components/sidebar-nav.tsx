@@ -13,6 +13,7 @@ import {
   Users,
   PanelLeftClose,
   PanelLeftOpen,
+  Mail,
 } from "lucide-react";
 
 const navItems = [
@@ -68,6 +69,20 @@ export function SidebarNav({ collapsed, onToggle }: { collapsed: boolean; onTogg
           );
         })}
       </div>
+
+      {/* Contact Us */}
+      <a
+        href="mailto:contact@contentelevatr.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        title={collapsed ? "Contact Us" : undefined}
+        className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 hover:bg-white/5 hover:text-white border border-transparent transition-all duration-150 ${
+          collapsed ? "justify-center" : ""
+        }`}
+      >
+        <Mail className="h-4 w-4 shrink-0" />
+        {!collapsed && <span>Contact Us</span>}
+      </a>
 
       {/* Collapse toggle at bottom */}
       <button

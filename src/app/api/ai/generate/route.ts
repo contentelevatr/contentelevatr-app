@@ -39,7 +39,14 @@ export async function POST(request: NextRequest) {
         }
         controller.close();
       } catch (error) {
-        const message = error instanceof Error ? error.message : "AI generation failed";
+        let message = "AI generation failed";
+        if (error instanceof Error) {
+          if (error.message.includes("429") || error.message.includes("RESOURCE_EXHAUSTED")) {
+            message = "Rate limit exceeded. Please wait a minute and try again, or check your API quota limits.";
+          } else {
+            message = error.message;
+          }
+        }
         controller.enqueue(encoder.encode(`\n\nError: ${message}`));
         controller.close();
       }

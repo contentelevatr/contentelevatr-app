@@ -44,6 +44,9 @@ Return ONLY the reply text, with no wrapping quotes or preamble.`;
     return text.trim().replace(/^"|"$/g, ""); // Remove accidental wrapping quotes
   } catch (error) {
     console.error("Failed to generate AI reply:", error);
+    if (error instanceof Error && (error.message.includes("429") || error.message.includes("RESOURCE_EXHAUSTED"))) {
+      return "Rate limit exceeded. Please wait a minute before generating more replies.";
+    }
     return "Thank you for the comment!"; // Safe fallback
   }
 }
